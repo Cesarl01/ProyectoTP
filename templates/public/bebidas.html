@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% load static %}
+        <link rel="stylesheet" href="{% static '/public/Style_Css/style.css' %}">
+        <link rel="stylesheet" href="{% static '/public/Style_Css/Style_sheet.css' %}">
+        <!-- CDN de Vue, version de desarrollo -->
+        <script src="https://unpkg.com/vue@next"></script>        
+    
+    </head>
+    
+    <body id="insheet">
+        <div id="bebida">
+            <div class="col-3" style="color: wheat ; font-size: xxx-large;"> Bebidas 
+            <button type="button" v-on:click="cambiarImagen">{{textoBoton}}</button></div>       
+            <div class="col-9">
+                <div class="container">
+                   
+                    <!-- Flex container -->
+                    <div class="item item-1"> <img v-bind:src="imagen" v-bind:title="titulo" v-bind:height="alto" v-bind:class="clase" alt="No encontré la imágen!"> </div>
+                </div>
+            </div>
+            
+        </div>
+        <!-- Nuestro script -->
+        <script>
+            //Creamos nuestra aplicacion.
+            const {createApp} = Vue
+            const miApp = createApp({
+                //DATOS de la aplicacion
+                data() {
+                    return {
+                        titulo: "",                            // Texto del tooltip
+                        indice: 1,                             // Nro de imagen a mostrar
+                        imagen: `/public/Images/Productos/Bebidas/${this.indice}.PNG`, // Ruta y nombre de la foto
+                        ultimaImagen: 2,                       // Ultima foto disponible.
+                        textoBoton: "Cambiar imagen",           // Texto del botón
+                        alto: 100,                             // Altura de la imagen
+                        clase: "winclass"
+                    }
+                },
+                
+                // El evento  mounted() se dispara al montar la aplicación
+                mounted() {
+                    //Al cargar la página, muestro la primer imágen
+                    this.imagen = "/public/Images/Productos/Bebidas/indice.PNG"     // Ruta y nombre de la foto
+                    this.titulo = "Imagen mostrada: " + this.imagen  // Texto del tooltip
+                  },
+                  
+                // Defino metodos:
+                methods: {
+                    cambiarImagen() {
+                        if (this.indice < this.ultimaImagen) {
+                            this.indice++;
+                        } else {
+                            this.indice = 1;
+                        }
+                
+                        const imagenPath = `/public/Images/Productos/Bebidas/${this.indice}.PNG`;
+                
+                        this.imagen = `{% static '${imagenPath}' %}`;
+                        this.titulo = `Imagen mostrada: ${imagenPath}`;
+                    },
+                },
+                
+                    agrandar() {
+                        //Veo si puedo agrandar más:
+                        if (this.alto < 200) {
+                            // Paso a la imágen siguiente
+                            this.alto = this.alto+10
+                        }
+                    },
+                    achicar() {
+                        //Veo si puedo agrandar más:
+                        if (this.alto >50) {
+                            // Paso a la imágen siguiente
+                            this.alto = this.alto-10
+                        }
+                    }
+                }
+            }).mount('#bebida')
+            //Montamos la aplicacion en el div con id=#bebida
+
+        </script>        
+    </body>
+</html>

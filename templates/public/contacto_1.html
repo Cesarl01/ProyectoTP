@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">   
+        {% load static %} {% load widget_tweaks %}      
+        <link  rel="stylesheet" href="{% static '/public/Style_Css/style.css' %}">
+        <link rel="stylesheet" href="{% static '/public/Style_Css/Style_sheet.css' %}">
+
+    </head>
+    <body id="insheet">
+        <div class="col-9">
+            <form action="" method="post">
+                {% csrf_token %}
+
+               <table>
+                    <!-- {{form.nombre|add_class:'form-control'}} -->
+                    {{contacto_form}}
+               </table>
+                                                            
+                 {% comment %} <div class="row">
+                    {% for campo in contacto_form %}
+                        <!--Grid column-->
+                        <div class="col-md-12">
+                            <div class="md-form mb-0">
+                                <label for="name" class="form-label">{{ campo.label }}</label>
+                                {{campo}}
+                            </div>
+                            <div >{{campo.errors}}</div>
+                        </div>
+                        <!--Grid column-->
+                    {% endfor %}
+                </div>  {% endcomment %}
+                <div class="row justify-content-center">
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>    
